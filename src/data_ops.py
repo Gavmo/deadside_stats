@@ -11,7 +11,6 @@ maindata = pandas.read_csv('../files/deadside_data.csv',
                                   'range',
                                   'blank'
                                   ],
-
                            delimiter=';'
                            )
 
@@ -45,9 +44,17 @@ def kill_death_ratio():
 def bully():
     """Show the most common hunter-victim pairing"""
     bully_df = maindata.groupby(['hunter', 'victim']).size().reset_index(name='counts')
-    bully_df.loc[bully_df['counts'].idxmax()]
     return bully_df.loc[bully_df['counts'].idxmax()]
 
+
+def punching_bag():
+    """Show the victim with the most distinct hunters"""
+    victim_df = maindata.groupby(['victim', 'hunter']).count()
+    victim_df1 = victim_df.groupby(['hunter']).sum()
+    # print(victim_df)
+    # for idx, row in victim_df.iteritems():
+    #     pass
+    return True
 
 
 if __name__ == '__main__':
@@ -56,3 +63,4 @@ if __name__ == '__main__':
     print(kill_death_ratio())
     print(str(marksman_award()))
     print(bully())
+    print(punching_bag())
