@@ -44,7 +44,9 @@ def kill_death_ratio():
 
 def bully():
     """Show the most common hunter-victim pairing"""
-    return maindata.groupby(['hunter', 'victim']).count()
+    bully_df = maindata.groupby(['hunter', 'victim']).size().reset_index(name='counts')
+    bully_df.loc[bully_df['counts'].idxmax()]
+    return bully_df.loc[bully_df['counts'].idxmax()]
 
 
 
