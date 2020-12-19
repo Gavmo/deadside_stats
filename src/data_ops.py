@@ -49,18 +49,14 @@ def bully():
 
 def punching_bag():
     """Show the victim with the most distinct hunters"""
-    victim_df = maindata.groupby(['victim', 'hunter']).count()
-    victim_df1 = victim_df.groupby(['hunter']).sum()
-    # print(victim_df)
-    # for idx, row in victim_df.iteritems():
-    #     pass
-    return True
+    victim_df = maindata[['hunter', 'victim']].drop_duplicates().groupby(['victim']).count().reset_index()
+    return victim_df.loc[victim_df['hunter'].idxmax()]
 
 
 if __name__ == '__main__':
-    print(bloodthirsty_award())
-    print(bullet_sponge_award())
-    print(kill_death_ratio())
-    print(str(marksman_award()))
-    print(bully())
+    # print(bloodthirsty_award())
+    # print(bullet_sponge_award())
+    # print(kill_death_ratio())
+    # print(str(marksman_award()))
+    # print(bully())
     print(punching_bag())
